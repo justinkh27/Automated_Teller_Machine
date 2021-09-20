@@ -85,5 +85,29 @@ namespace Automated_Teller_Machine
             string toJson = JsonSerializer.Serialize(userList, jsonOptions);
             File.WriteAllText(filename, toJson);
         }
+
+        public void UpdateJson(string filename, string userName,float newAccountBalance)
+        {
+            var jsonFileRead = File.ReadAllText(filename);
+            var jsonUserList = JsonSerializer.Deserialize<User[]>(jsonFileRead);
+
+            List<string> usersList = new List<string>();
+
+            foreach (var users in jsonUserList)
+            {
+                usersList.Add(users.UserName);
+            }
+
+            int userIndex = usersList.IndexOf(userName);
+
+            Console.WriteLine(jsonUserList[userIndex].UserName);
+
+            jsonUserList[userIndex].AccountBalance = newAccountBalance;
+            Console.WriteLine(jsonUserList[userIndex].AccountBalance);
+
+            string toJson = JsonSerializer.Serialize(jsonUserList, jsonOptions);
+            File.WriteAllText(filename, toJson);
+
+        }
     }
 }

@@ -10,19 +10,10 @@ namespace Automated_Teller_Machine
         {
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string jsonFile = (filePath + "\\userAccount.json");
-            Console.WriteLine(jsonFile);
-
-            User JohnSmith = new User()
-            {
-                UserId = 1,
-                FirstName = "John",
-                LastName = "Smith",
-                UserName = "JSmith",
-                AccountBalance = 25f
-            };
-
+            
             JsonFileInfo JFI = new JsonFileInfo();
             User user = new User();
+            MachineFunction machine = new MachineFunction();
 
             if (!File.Exists(jsonFile))
             {
@@ -45,12 +36,12 @@ namespace Automated_Teller_Machine
             {
                 User verifiedUser = user.ValidateUserLogin(jsonFile);
 
-                Console.WriteLine(verifiedUser.UserName);
-                Console.WriteLine(verifiedUser.Password);
-                Console.WriteLine(verifiedUser.AccountBalance);
-            }
+                machine.Withdraw(verifiedUser);
 
-            //We have the user, now we need banking stuff. 
+                Console.WriteLine(verifiedUser.AccountBalance);
+
+                JFI.UpdateJson(jsonFile, verifiedUser.UserName,verifiedUser.AccountBalance);
+            }
         }
     }
 }

@@ -8,5 +8,12 @@ namespace Automated_Teller_Machine
 {
     public class MachineFunction
     {
+        public float Withdraw(User user)
+        {
+            Console.WriteLine("\tEnter withdraw amount");
+            float withdrawAmount = Convert.ToInt32(Console.ReadLine());
+            return user.AccountBalance -= withdrawAmount;
+
+        }
     }
 }
