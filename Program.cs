@@ -49,6 +49,8 @@ namespace Automated_Teller_Machine
                 Console.WriteLine(verifiedUser.Password);
                 Console.WriteLine(verifiedUser.AccountBalance);
             }
+
+            //We have the user, now we need banking stuff. 
         }
     }
 }
