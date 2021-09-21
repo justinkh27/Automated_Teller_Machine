@@ -10,7 +10,7 @@ namespace Automated_Teller_Machine
         {
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string jsonFile = (filePath + "\\userAccount.json");
-            
+
             JsonFileInfo JFI = new JsonFileInfo();
             User user = new User();
             MachineFunction machine = new MachineFunction();
@@ -21,27 +21,61 @@ namespace Automated_Teller_Machine
             }
             JFI.IfEmptyWriteFirstUser(jsonFile);
 
-            Console.WriteLine("\tSelect an option");
-            Console.WriteLine("\t1. Create New User");
-            Console.WriteLine("\t2. Log In Existing User");
+            var logInChoice = user.GetUserLoginChoice();
 
-            var logInChoice = user.GetUserChoice();
-
-            if (logInChoice == 1)
+            do
             {
-                JFI.AddNewJsonUser(jsonFile);
-            }
+                if (logInChoice == 1)
+                {
+                    JFI.AddNewJsonUser(jsonFile);
+                    logInChoice = user.GetUserLoginChoice();
+                }
+                else if (logInChoice == 2)
+                {
+                    bool userLoggedIn = false;
 
-            if (logInChoice == 2)
-            {
-                User verifiedUser = user.ValidateUserLogin(jsonFile);
 
-                machine.Withdraw(verifiedUser);
+                    User verifiedUser = user.ValidateUserLogin(jsonFile);
 
-                Console.WriteLine(verifiedUser.AccountBalance);
+                    do
+                    {
+                        int selection = verifiedUser.GetUserMenuChoice();
 
-                JFI.UpdateJson(jsonFile, verifiedUser.UserName,verifiedUser.AccountBalance);
-            }
+                        if (selection == 1)
+                        {
+                            machine.CheckBalance(verifiedUser);
+                        }
+                        else if (selection == 2)
+                        {
+                            machine.Withdraw(verifiedUser);
+                            JFI.UpdateJson(jsonFile, verifiedUser.UserName, verifiedUser.AccountBalance);
+                        }
+                        else if (selection == 3)
+                        {
+                            machine.Deposit(verifiedUser);
+                            JFI.UpdateJson(jsonFile, verifiedUser.UserName, verifiedUser.AccountBalance);
+                        }
+                        else if (selection == 4)
+                        {
+                            Console.WriteLine("\tLogging Off\n");
+                            userLoggedIn = true;
+                            logInChoice = user.GetUserLoginChoice();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please make a valid selection");
+                        }
+                    } while (userLoggedIn == false);
+                }
+                
+
+            } while (logInChoice < 3);
+
+            Console.WriteLine("\tGoodbye");
+
         }
     }
 }
+
+
+

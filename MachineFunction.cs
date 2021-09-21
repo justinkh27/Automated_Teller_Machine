@@ -15,5 +15,15 @@ namespace Automated_Teller_Machine
             return user.AccountBalance -= withdrawAmount;
 
         }
+        public float Deposit(User user)
+        {
+            Console.WriteLine("\tEnter deposit amount");
+            float withdrawAmount = Convert.ToInt32(Console.ReadLine());
+            return user.AccountBalance += withdrawAmount;
+        }
+        public void CheckBalance(User user)
+        {
+            Console.WriteLine("Balance is: " + user.AccountBalance);
+        }
     }
 }

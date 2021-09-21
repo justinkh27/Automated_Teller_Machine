@@ -64,7 +64,7 @@ namespace Automated_Teller_Machine
             Console.Write("Password: ");
             userPass = (Console.ReadLine());
             var id = idList.Count + 1;
-            Console.WriteLine(id);
+            
 
             userList.Add(new User()
             {
@@ -99,8 +99,6 @@ namespace Automated_Teller_Machine
             }
 
             int userIndex = usersList.IndexOf(userName);
-
-            Console.WriteLine(jsonUserList[userIndex].UserName);
 
             jsonUserList[userIndex].AccountBalance = newAccountBalance;
             Console.WriteLine(jsonUserList[userIndex].AccountBalance);
