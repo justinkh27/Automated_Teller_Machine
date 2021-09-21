@@ -101,7 +101,6 @@ namespace Automated_Teller_Machine
             int userIndex = usersList.IndexOf(userName);
 
             jsonUserList[userIndex].AccountBalance = newAccountBalance;
-            Console.WriteLine(jsonUserList[userIndex].AccountBalance);
 
             string toJson = JsonSerializer.Serialize(jsonUserList, jsonOptions);
             File.WriteAllText(filename, toJson);

@@ -59,7 +59,7 @@ namespace Automated_Teller_Machine
                         {
                             Console.WriteLine("\tLogging Off\n");
                             userLoggedIn = true;
-                            logInChoice = user.GetUserLoginChoice();
+                            logInChoice = 3;
                         }
                         else
                         {
