@@ -12,13 +12,24 @@ namespace Automated_Teller_Machine
 {
     public class User
     {
+
+        private int _choice;
+        private float _balance;
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
         public string Password { get; set; }
-        public float AccountBalance { get; set; }
+        public float AccountBalance { 
+            get
+            {
+                return _balance;
+            }
+            set
+            { 
+                _balance = value;
+            } }
 
         public int GetID(User user)
         {
@@ -56,7 +67,7 @@ namespace Automated_Teller_Machine
 
         public int GetUserMenuChoice()
         {
-            int choice;
+            
             Console.WriteLine("Please select from the following options: ");
             Console.WriteLine("1. Check Balance");
             Console.WriteLine("2. Withdraw");
@@ -64,13 +75,13 @@ namespace Automated_Teller_Machine
             Console.WriteLine("4. Log off");
             string entry = Console.ReadLine();
 
-            while (!Int32.TryParse(entry, out choice))
+            while (!Int32.TryParse(entry, out _choice))
             {
                 Console.WriteLine("Not a valid number, try again.");
 
                 entry = Console.ReadLine();
             }
-            return choice;
+            return _choice;
         }
 
         public User ValidateUserLogin(string filename)
